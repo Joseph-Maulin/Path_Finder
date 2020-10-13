@@ -21,7 +21,7 @@
   display: flex;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
-  align-content: center;
+  align-content: flex-start;
 }
 
 .maze_cell{
@@ -49,22 +49,57 @@
 }
 </style>
 
-<div id="grid">
+<div id="grid" onmouseleave="mouseReset()">
   {% for x in range(1638) %}
-    <div class="maze_cell" onmouseover="makeWall(this)"></div>
+    <div class="maze_cell" id="maze_cell_{{x}}" onmouseover="makeWall(this)"></div>
   {% endfor %}
 </div>
+
+<button onclick="getMaze()">Get Maze</button>
+<h1 id="cellnum"></h1>
+
+<h2 id="arr"></h2>
+
+
+
+
 
 <script>
 var mouseDown = 0;
 document.body.onmousedown = function(){++mouseDown;}
 document.body.onmouseup = function(){--mouseDown;}
 
+function mouseReset(){
+  var mouseDown = 0;
+}
+
 function makeWall(x){
+  document.getElementById("cellnum").innerHTML = x.id;
   if(mouseDown){
       x.className="maze_cell_wall";
   }
 }
+
+function getMaze(){//42w39h
+  var maze = [];
+  for(let i=0; i<39; i++){
+    var line = [];
+    for(let j=0; j<42; j++){
+      if(document.getElementById(`maze_cell_${i*42 + j}`).classList.contains("maze_cell_wall")){
+        line.push("W");
+      }
+      else{
+        line.push(".");
+      }
+    }
+    maze.push(line);
+  }
+  // document.getElementById("arr").innerHTML = maze;
+  {{path_finder.find_path(maze)}};
+  document.getElementById("arr").innerHTML = {{path_finder.array_maze}};
+
+}
+
 </script>
 
 </body>

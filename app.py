@@ -8,17 +8,7 @@ app = Flask(__name__)
 @app.route('/', methods = ['GET', 'POST'])
 def path_display():
 
-    maze = "\n".join([
-      ".W.F.." + ".W...." * 5,
-      ".W...." * 6,
-      ".W.WW." * 6,
-      "....W." * 6,
-      "....W." * 6,
-      "....W." * 5 + "....W0"
-    ])
-
-    pf = Path_Finder(maze)
-    pf.find_path()
+    pf = Path_Finder()
 
     return render_template("maze_display.html", path_finder = pf)
 

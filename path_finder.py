@@ -2,10 +2,14 @@
 
 class Path_Finder:
 
-    def __init__(self, maze):
-        self.maze = maze
+    def __init__(self):
+        self.maze = None
+        self.array_maze = []
 
-    def find_path(self):
+    def set_array_maze(self, maze):
+        self.array_maze = maze
+
+    def set_maze(self, maze):
         self.maze = self.maze.split()
         self.array_maze = []
         locations = {}
@@ -22,6 +26,11 @@ class Path_Finder:
         if not locations:
             locations[0] = [[0,0]]
             self.array_maze[0][0] = 0
+
+    def find_path(self, maze):
+        self.array_maze = maze
+        locations = {0:[[0,0]]}
+        self.array_maze[0][0] = 0
 
         i = 0
         while True:
@@ -95,5 +104,6 @@ if __name__ == "__main__":
     ])
 
 
-    pf = Path_Finder(d)
+    pf = Path_Finder()
+    pf.set_maze(d)
     pf.find_path()
