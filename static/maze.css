@@ -1,0 +1,15 @@
+
+#grid{
+  left:15%;
+  top:25%;
+  width:70%;
+  background-color: #F0F0F0;
+  border: solid 2px;
+}
+
+#maze_cell{
+  position: relative;
+  width:3%;
+  background-color: #F0F0F0;
+  border: solid 1px;
+}

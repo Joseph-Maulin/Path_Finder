@@ -1,0 +1,52 @@
+<!DOCTYPE html5>
+<html5>
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+
+<style>
+#grid{
+  margin:auto;
+  padding:auto;
+  left:15%;
+  top:25%;
+  height:50%;
+  width:70%;
+  border: none;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+#maze_cell{
+  position: relative;
+  width:2%;
+  height:2%;
+  margin:0px;
+  padding:0px;
+  background-color: #A9A9A9;
+  border: 1px solid rgba(216,216,216,.5);
+}
+
+#maze_cell:hover{
+  background-color:white;
+}
+</style>
+
+<div id="grid">
+  {% for x in range(1638) %}
+    <div id="maze_cell"></div>
+  {% endfor %}
+</div>
+
+
+</body>
+
+
+</html5>
