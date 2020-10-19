@@ -1,0 +1,98 @@
+<!DOCTYPE html5>
+<html5>
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+
+<style>
+#grid{
+  margin:auto;
+  padding:auto;
+  left:15%;
+  top:25%;
+  height:50%;
+  width:70%;
+  border: none;
+  display: grid;
+  grid-template-columns: repeat(42, auto);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.maze_cell{
+  position: relative;
+  width:100%;
+  height:100%;
+  margin:0px;
+  padding:0px;
+  background-color: #A9A9A9;
+  border: 1px solid rgba(216,216,216,.5);
+}
+
+.maze_cell_searched{
+  position: relative;
+  font-size:7px;
+  text-align:center;
+  color:white;
+  width:100%;
+  height:100%;
+  margin:0px;
+  padding:0px;
+  background-color: green;
+  border: 1px solid rgba(216,216,216,.5);
+}
+
+.maze_cell_wall{
+  position: relative;
+  width:100%;
+  height:100%;
+  margin:0px;
+  padding:0px;
+  background-color: black;
+  border: 1px solid rgba(216,216,216,.5);
+}
+
+#maze_cell:hover{
+  background-color:white;
+}
+</style>
+
+<div id="grid">
+  {% for i in range(39) %}
+    {% for j in range(42) %}
+    {% if maze_solved[i][j] == 'W' %}
+      <div class="maze_cell_wall" id="maze_cell_{{i*42 + j}}"></div>
+    {% else %}
+      <div class="maze_cell" id="maze_cell_{{i*42 + j}}"></div>
+    {% endif %}
+    {% endfor %}
+  {% endfor %}
+</div>
+
+<h1 id="checker"></h1>
+
+<script>
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  $(document).ready(async function runMaze(){
+    var x = 0;
+    var y = 0;
+    for(var i = 0; i<{{locations}}.length; i+=2){
+      x = {{locations}}[i];
+      y = {{locations}}[i+1];
+      document.getElementById(`maze_cell_${x*42 + y}`).className = "maze_cell_searched";
+      await sleep(10);
+    }
+  });
+</script>
+
+
+</body>
+</html5>

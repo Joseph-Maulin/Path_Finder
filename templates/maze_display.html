@@ -18,16 +18,16 @@
   height:50%;
   width:70%;
   border: none;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-  align-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(42, auto);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
 }
 
 .maze_cell{
   position: relative;
-  width:2%;
-  height:2%;
+  width:100%;
+  height:100%;
   margin:0px;
   padding:0px;
   background-color: #A9A9A9;
@@ -36,16 +36,16 @@
 
 .maze_cell_wall{
   position: relative;
-  width:2%;
-  height:2%;
+  width:100%;
+  height:100%;
   margin:0px;
   padding:0px;
-  background-color: white;
+  background-color: black;
   border: 1px solid rgba(216,216,216,.5);
 }
 
 #maze_cell:hover{
-  background-color:white;
+  background-color:black;
 }
 </style>
 
@@ -55,12 +55,12 @@
   {% endfor %}
 </div>
 
-<button onclick="getMaze()">Get Maze</button>
+
 <h1 id="cellnum"></h1>
 
-<h2 id="arr"></h2>
-
-
+<form action="/solve" id="get_maze_form" method="POST">
+  <input type="submit" id="arr" name="arr" onclick="getMaze()"required><br>
+</form>
 
 
 
@@ -81,23 +81,20 @@ function makeWall(x){
 }
 
 function getMaze(){//42w39h
-  var maze = [];
+  var maze = "";
   for(let i=0; i<39; i++){
-    var line = [];
     for(let j=0; j<42; j++){
       if(document.getElementById(`maze_cell_${i*42 + j}`).classList.contains("maze_cell_wall")){
-        line.push("W");
+        maze += "W";
       }
       else{
-        line.push(".");
+        maze += ".";
       }
     }
-    maze.push(line);
+    maze += "\n";
   }
-  // document.getElementById("arr").innerHTML = maze;
-  {{path_finder.find_path(maze)}};
-  document.getElementById("arr").innerHTML = {{path_finder.array_maze}};
-
+  document.getElementById("arr").value = maze;
+  document.getElementById("get_maze_form").submit();
 }
 
 </script>
