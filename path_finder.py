@@ -4,18 +4,22 @@ import numpy as np
 class Path_Finder:
 
     def __init__(self):
-        self.maze = None
+        # self.maze = None
         self.array_maze = []
 
-    def set_array_maze(self, maze):
-        self.array_maze = maze
-        self.n = len(self.array_maze)
+    # def set_array_maze(self, maze):
+    #     self.array_maze = maze
+    #     self.n = len(self.array_maze)
 
     def set_string_maze(self, maze):
+        """
+        Set up a maze passed as a string separated by '\n'
+        """
         self.maze = maze.split()
         self.array_maze = []
         self.locations = {}
 
+        # set up maze array with markers
         finish = False
         for i in range(len(self.maze)):
             new_line = []
@@ -41,21 +45,12 @@ class Path_Finder:
         while True:
             if not self.locations[i]:
                 return False
+
             for loc in self.locations[i]:
-
-                # [[0,0], [0,1], ..]
-                # [[0,0], [1,0], ..]
-                # if self.find_steps == None
-                # delete paths with that step in it
-                # else copy path with that step for all find_steps found and add onto it
-
-
                 if not i+1 in self.locations.keys():
                     self.locations[i+1] = []
 
                 steps = self.find_steps(loc, self.n)
-
-                # print(self.path_tracks)
 
                 if len(steps) == 0:
                     t = []

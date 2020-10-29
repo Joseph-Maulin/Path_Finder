@@ -101,7 +101,7 @@
       x = {{locations}}[i];
       y = {{locations}}[i+1];
       document.getElementById(`maze_cell_${x*42 + y}`).className = "maze_cell_searched";
-      await sleep(0.1);
+      await sleep(0.01);
     }
 
     for(var i=0; i<{{final_path}}.length; i+=2){
