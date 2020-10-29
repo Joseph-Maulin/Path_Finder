@@ -31,16 +31,24 @@ class Path_Finder:
                     finish = True
             self.array_maze.append(new_line)
 
+        # set max side length as self.n
         self.n = max(len(self.array_maze), len(self.array_maze[0]))
+
+        # if not a "0" start place marker in passed maze -> Set start as top right corner
         if not self.locations:
             self.locations[0] = [[0,0]]
             self.array_maze[0][0] = 0
 
+        # if not "F" in passed maze -> set finish to bottom right
         if not finish:
             self.array_maze[-1][-1] = 'F'
 
     def find_path(self):
+        """
+        Find path from '0' to 'F' in array_maze
+        """
         self.path_tracks = [[[0,0]]]
+        self.path = None
         i = 0
         while True:
             if not self.locations[i]:

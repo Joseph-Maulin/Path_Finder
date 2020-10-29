@@ -11,7 +11,6 @@ pf = Path_Finder()
 @app.route('/', methods = ['GET', 'POST'])
 def path_display():
 
-
     return render_template("maze_display.html")
 
 

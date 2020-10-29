@@ -80,6 +80,8 @@
     {% for j in range(42) %}
     {% if maze_solved[i][j] == 'W' %}
       <div class="maze_cell_wall" id="maze_cell_{{i*42 + j}}"></div>
+    {% elif i*42 + j == 1637 %}
+      <div class="maze_cell_path" id="maze_cell_{{1637}}"></div>
     {% else %}
       <div class="maze_cell" id="maze_cell_{{i*42 + j}}"></div>
     {% endif %}
