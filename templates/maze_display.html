@@ -66,11 +66,11 @@
 
 <script>
 var mouseDown = 0;
-document.body.onmousedown = function(){++mouseDown;}
-document.body.onmouseup = function(){--mouseDown;}
+document.body.onmousedown = function(){mouseDown=1;}
+document.body.onmouseup = function(){mouseDown=0;}
 
 function mouseReset(){
-  var mouseDown = 0;
+  mouseDown = 0;
 }
 
 function makeWall(x){
