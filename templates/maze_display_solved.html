@@ -34,6 +34,19 @@
   border: 1px solid rgba(216,216,216,.5);
 }
 
+.maze_cell_start{
+  position: relative;
+  font-size:7px;
+  text-align:center;
+  color:white;
+  width:100%;
+  height:100%;
+  margin:0px;
+  padding:0px;
+  background-color: yellow;
+  border: 1px solid rgba(216,216,216,.5);
+}
+
 .maze_cell_searched{
   position: relative;
   font-size:7px;
@@ -80,8 +93,10 @@
     {% for j in range(42) %}
     {% if maze_solved[i][j] == 'W' %}
       <div class="maze_cell_wall" id="maze_cell_{{i*42 + j}}"></div>
-    {% elif i*42 + j == 1637 %}
-      <div class="maze_cell_path" id="maze_cell_{{1637}}"></div>
+    {% elif i*42 + j == start %}
+      <div class="maze_cell_start" id="maze_cell_{{i*42 + j}}"></div>
+    {% elif i*42 + j == finish %}
+      <div class="maze_cell_path" id="maze_cell_{{i*42 + j}}"></div>
     {% else %}
       <div class="maze_cell" id="maze_cell_{{i*42 + j}}"></div>
     {% endif %}
@@ -99,7 +114,7 @@
   $(document).ready(async function runMaze(){
     var x = 0;
     var y = 0;
-    for(var i = 0; i<{{locations}}.length; i+=2){
+    for(var i = 2; i<{{locations}}.length; i+=2){
       x = {{locations}}[i];
       y = {{locations}}[i+1];
       document.getElementById(`maze_cell_${x*42 + y}`).className = "maze_cell_searched";

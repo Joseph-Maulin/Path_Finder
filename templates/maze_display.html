@@ -34,6 +34,10 @@
   border: 1px solid rgba(216,216,216,.5);
 }
 
+.maze_cell:hover{
+  background-color: #c9c7c7;
+}
+
 .maze_cell_wall{
   position: relative;
   width:100%;
@@ -44,19 +48,55 @@
   border: 1px solid rgba(216,216,216,.5);
 }
 
+.maze_cell_start{
+  position: relative;
+  width:100%;
+  height:100%;
+  margin:0px;
+  padding:0px;
+  background-color: green;
+  border: 1px solid rgba(216,216,216,.5);
+}
+
+.maze_cell_finish{
+  position: relative;
+  width:100%;
+  height:100%;
+  margin:0px;
+  padding:0px;
+  background-color: red;
+  border: 1px solid rgba(216,216,216,.5);
+}
+
 #maze_cell:hover{
   background-color:black;
 }
+
+#start_box{
+  background-color: green;
+  width:20px;
+  height:20px;
+}
+
+#finish_box{
+  background-color: red;
+  width:20px;
+  height:20px;
+}
 </style>
 
-<div id="grid" onmouseleave="mouseReset()">
+<div id="grid">
   {% for x in range(1638) %}
-    <div class="maze_cell" id="maze_cell_{{x}}" onmouseover="makeWall(this)"></div>
+    <div class="maze_cell" id="maze_cell_{{x}}" onmouseover="makeWall(this)" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
   {% endfor %}
 </div>
 
 
 <h1 id="cellnum"></h1>
+<!-- <h1 id="box"></h1> -->
+<div id="start_box" ondragstart="dragStart(event, this)" draggable="true"></div>
+<div id="finish_box" ondragstart="dragStart(event, this)" draggable="true"></div>
+
 
 <form action="/solve" id="get_maze_form" method="POST">
   <input type="submit" id="arr" name="arr" onclick="getMaze()"required><br>
@@ -66,26 +106,69 @@
 
 <script>
 var mouseDown = 0;
+var draggingStart = 0;
 document.body.onmousedown = function(){mouseDown=1;}
 document.body.onmouseup = function(){mouseDown=0;}
 
-function mouseReset(){
-  mouseDown = 0;
-}
-
 function makeWall(x){
-  document.getElementById("cellnum").innerHTML = x.id;
-  if(mouseDown){
+  document.getElementById("cellnum").innerHTML = x.id + x.className;
+  if(mouseDown==1 && draggingStart==0){
       x.className="maze_cell_wall";
   }
 }
 
-function getMaze(){//42w39h
+function dragStart(event, id){
+  event.dataTransfer.setData("Text", id.id);
+  // document.getElementById("box").innerHTML = id.id;
+  draggingStart = 1;
+}
+
+function allowDrop(event){
+  event.preventDefault();
+}
+
+function drop(event, id){
+  var box = event.dataTransfer.getData("Text");
+  if(box == "start_box"){
+    for(let i=0; i<39; i++){
+      for(let j=0; j<42; j++){
+          if(document.getElementById(`maze_cell_${i*42 + j}`).classList.contains("maze_cell_start")){
+            document.getElementById(`maze_cell_${i*42 + j}`).className = "maze_cell";
+          }
+      }
+    }
+    id.className = "maze_cell_start";
+  }
+
+  else{
+    for(let i=0; i<39; i++){
+      for(let j=0; j<42; j++){
+          if(document.getElementById(`maze_cell_${i*42 + j}`).classList.contains("maze_cell_finish")){
+            document.getElementById(`maze_cell_${i*42 + j}`).className = "maze_cell";
+          }
+      }
+    }
+    id.className = "maze_cell_finish";
+  }
+
+  draggingStart = 0;
+  mouseDown=0;
+}
+
+
+function getMaze(){
+  //42w39h
   var maze = "";
   for(let i=0; i<39; i++){
     for(let j=0; j<42; j++){
       if(document.getElementById(`maze_cell_${i*42 + j}`).classList.contains("maze_cell_wall")){
         maze += "W";
+      }
+      else if(document.getElementById(`maze_cell_${i*42 + j}`).classList.contains("maze_cell_start")){
+        maze += "0"
+      }
+      else if(document.getElementById(`maze_cell_${i*42 + j}`).classList.contains("maze_cell_finish")){
+        maze += "F"
       }
       else{
         maze += ".";

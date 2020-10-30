@@ -27,8 +27,10 @@ class Path_Finder:
                 new_line.append(self.maze[i][j])
                 if self.maze[i][j] == '0':
                     self.locations[0] = [[i,j]]
+                    self.start = i*42 + j
                 elif self.maze[i][j] == 'F':
                     finish = True
+                    self.finish = i*42 + j
             self.array_maze.append(new_line)
 
         # set max side length as self.n
@@ -36,18 +38,20 @@ class Path_Finder:
 
         # if not a "0" start place marker in passed maze -> Set start as top right corner
         if not self.locations:
+            self.start = 0
             self.locations[0] = [[0,0]]
             self.array_maze[0][0] = 0
 
         # if not "F" in passed maze -> set finish to bottom right
         if not finish:
             self.array_maze[-1][-1] = 'F'
+            self.finish = i*42 + j
 
     def find_path(self):
         """
         Find path from '0' to 'F' in array_maze
         """
-        self.path_tracks = [[[0,0]]]
+        self.path_tracks = [self.locations[0]]
         self.path = None
         i = 0
         while True:
@@ -139,11 +143,11 @@ class Path_Finder:
 if __name__ == "__main__":
 
     d = "\n".join([
-      ".W...." * 10,
-      ".W...." * 10,
-      ".W.WW." * 10,
-      "....W." * 10,
-      "....W." *10,
+      ".W....",
+      ".W....",
+      ".W0WW.",
+      "....W.",
+      "F...W.",
     ])
 
 
@@ -151,5 +155,6 @@ if __name__ == "__main__":
     pf.set_string_maze(d)
     pf.find_path()
     # pf.print_maze()
+    print(pf.finish)
     print(pf.path)
     # print(reduce(lambda z, y :z + y, reduce(lambda z, y :z + y, pf.locations.values())))
