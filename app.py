@@ -25,4 +25,5 @@ def solve_maze():
     return render_template("maze_display_solved.html", maze_solved=pf.array_maze, locations=flat_locations, final_path=pf.path, start=pf.start, finish=pf.finish)
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    # app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run()
