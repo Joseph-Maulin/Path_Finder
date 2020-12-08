@@ -14,4 +14,4 @@ path_finder.py is used to solve the maze and find the shortest path. The maze is
 app.py is a simple flask app to display the interactive maze and to call the solved route result of the user constructed maze.
 
 ## templates/maze_display.html and templates/maze_solved.html
-This uses JQuery, Jinja, Flask, Javascript, and CSS to display a user iteractive maze. The user draws a maze and places the start/finish markers to submit to find the shortest route to the finish. The program then displays the result to the user along with the process of the grid search in green.
+This uses JQuery, Jinja, Flask, Javascript, and CSS to display a user iteractive maze. The user draws a maze and places the start/finish markers to submit to find the shortest route to the finish. The program then displays the result to the user along with the process of the grid search in green. **Note that the display is artifically slowed down to be more visible to the human eye.
