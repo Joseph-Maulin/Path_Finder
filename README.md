@@ -1,10 +1,10 @@
+# App  -- CLICK HERE TO BUILD A MAZE AND WATCH IT SOLVED
+https://path-finder-jm.herokuapp.com/
+
 # Path_Finder
 
 # Introduction
 An interactive path finding program to find the shortest distance between two points on a grid plane. It is a heroku hosted flask app using Python, Flask, and JQuery. Click the app below to view..
-
-# App
-https://path-finder-jm.herokuapp.com/
 
 # What is here?
 ## path_finder.py
