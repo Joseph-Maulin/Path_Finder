@@ -13,3 +13,15 @@
   background-color: #F0F0F0;
   border: solid 1px;
 }
+
+
+#github-image{
+  margin:15px;
+  height:50px;
+  width:100px;
+}
+
+#github-image:hover{
+  height:55px;
+  width:103px;
+}
